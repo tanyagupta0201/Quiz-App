@@ -1,148 +1,160 @@
 package com.example.quizapp
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_question.*
+import com.example.quizapp.databinding.ActivityQuestionBinding
 
 class QuestionActivity : AppCompatActivity() {
 
-    private var Name: String?=null
+    private lateinit var name: String
     private var score: Int = 0
 
     private var currentPosition: Int = 1
-    private var questionList: ArrayList<QuestionData>?=null
+    private var questionList: ArrayList<QuestionData> = SetData.getQuestion()
     private var selectedOption: Int = 0
+
+    private lateinit var binding: ActivityQuestionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_question)
+        binding = ActivityQuestionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        Name = intent.getStringExtra(setData.name)
-
-        questionList = setData.getQuestion()
+        name = intent.getStringExtra(SetData.name).toString()
 
         setQuestion()
 
-        opt_1.setOnClickListener{
-            selectedOptionStyle(opt_1, 1)
-        }
+        binding.opt1.setOnClickListener { selectedOptionStyle(binding.opt1, 1) }
 
-        opt_2.setOnClickListener{
-            selectedOptionStyle(opt_2, 2)
-        }
+        binding.opt2.setOnClickListener { selectedOptionStyle(binding.opt2, 2) }
 
-        opt_3.setOnClickListener{
-            selectedOptionStyle(opt_3, 3)
-        }
+        binding.opt3.setOnClickListener { selectedOptionStyle(binding.opt3, 3) }
 
-        opt_4.setOnClickListener{
-            selectedOptionStyle(opt_4, 4)
-        }
+        binding.opt4.setOnClickListener { selectedOptionStyle(binding.opt4, 4) }
 
-        submit.setOnClickListener{
-            if (selectedOption != 0)
-            {
-                val question = questionList!![currentPosition - 1]
+        binding.submit.setOnClickListener {
 
-                if (selectedOption != question.correct_ans)
-                {
+            if (selectedOption != 0) {
+
+                val question = questionList[currentPosition - 1]
+
+                if (selectedOption != question.correctAns) {
                     setColor(selectedOption, R.drawable.wrong_question_option)
-                }else{
+                } else {
                     score++
                 }
-                setColor(question.correct_ans, R.drawable.correct_question_option)
 
-                if (currentPosition == questionList!!.size)
-                    submit.text = "FINISH"
-                else
-                    submit.text = "Go To Next"
-            }else{
+                setColor(question.correctAns, R.drawable.correct_question_option)
+
+                // Changing the submit button based on the currentPosition of Question
+                if (currentPosition == questionList.size) {
+                    binding.submit.text = resources.getString(R.string.finish)
+                } else {
+                    binding.submit.text = resources.getString(R.string.go_to_next)
+                }
+
+            } else {
+
                 currentPosition++
-                when{
-                    currentPosition <= questionList!!.size->{
-                        setQuestion()
-                    }
-                    else->
-                    {
-                        var intent = Intent(this, Result::class.java)
 
-                        intent.putExtra(setData.name, Name.toString())
-                        intent.putExtra(setData.score, score.toString())
-                        intent.putExtra("total size", questionList!!.size.toString())
+                when {
+
+                    // keep on setting questions and showing them to the user
+                    currentPosition <= questionList.size -> setQuestion()
+
+                    else -> {
+
+                        // move to ResultActivity
+                        val intent = Intent(this, Result::class.java)
+
+                        intent.putExtra(SetData.name, name)
+                        intent.putExtra(SetData.score, score.toString())
+                        intent.putExtra("total size", questionList.size.toString())
 
                         startActivity(intent)
                         finish()
                     }
                 }
             }
+
             selectedOption = 0
         }
 
     }
 
-    fun setColor(opt: Int, color: Int)
-    {
-        when(opt){
-            1->{
-                opt_1.background = ContextCompat.getDrawable(this, color)
+    // Based on selected option the background of the options are set
+    private fun setColor(opt: Int, color: Int) {
+
+        when (opt) {
+            1 -> {
+                binding.opt1.background = ContextCompat.getDrawable(this, color)
             }
-            2->{
-                opt_2.background = ContextCompat.getDrawable(this, color)
+
+            2 -> {
+                binding.opt2.background = ContextCompat.getDrawable(this, color)
             }
-            3->{
-                opt_3.background = ContextCompat.getDrawable(this, color)
+
+            3 -> {
+                binding.opt3.background = ContextCompat.getDrawable(this, color)
             }
-            4->{
-                opt_4.background = ContextCompat.getDrawable(this, color)
+
+            4 -> {
+                binding.opt4.background = ContextCompat.getDrawable(this, color)
             }
 
         }
     }
 
-    fun setQuestion() {
-        val question = questionList!![currentPosition - 1]
+    // Setting the question, progress bar and all the four options text
+    private fun setQuestion() {
+
+        // Setting Question
+        val question = questionList[currentPosition - 1]
+        binding.questionText.text = question.question
+
+        // Setting the progress based on Current Question
+        binding.progressBar.progress = currentPosition
+        binding.progressBar.max = questionList.size
+        binding.progressText.text = "$currentPosition" + "/" + "${questionList.size}"
+
         setOptionStyle()
 
-        progress_bar.progress = currentPosition
-        progress_bar.max = questionList!!.size
-        progress_text.text = "${currentPosition}" + "/" + "${questionList!!.size}"
-        question_text.text = question.question
-
-        opt_1.text = question.option_one
-        opt_2.text = question.option_two
-        opt_3.text = question.option_three
-        opt_4.text = question.option_four
+        binding.opt1.text = question.optionOne
+        binding.opt2.text = question.optionTwo
+        binding.opt3.text = question.optionThree
+        binding.opt4.text = question.optionFour
     }
 
-    fun setOptionStyle()
-    {
-        var optionList: ArrayList<TextView> = arrayListOf()
-        optionList.add(0, opt_1)
-        optionList.add(0, opt_2)
-        optionList.add(0, opt_3)
-        optionList.add(0, opt_4)
+    // Settings the options and their background
+    private fun setOptionStyle() {
 
-        for(op in optionList)
-        {
-            op.setTextColor(Color.parseColor("#747377"))
+        val optionList: ArrayList<TextView> = arrayListOf()
+
+        optionList.add(binding.opt1)
+        optionList.add(binding.opt2)
+        optionList.add(binding.opt3)
+        optionList.add(binding.opt4)
+
+        for (op in optionList) {
+            op.setTextColor(resources.getColor(R.color.optionUnselectedColor))
             op.background = ContextCompat.getDrawable(this, R.drawable.ques_option)
             op.typeface = Typeface.DEFAULT
         }
     }
 
-    fun selectedOptionStyle(view: TextView, opt: Int)
-    {
-         setOptionStyle()
-         selectedOption = opt
-         view.background = ContextCompat.getDrawable(this, R.drawable.selected_question_option)
-         view.typeface = Typeface.DEFAULT_BOLD
-         view.setTextColor(Color.parseColor("#000000"))
+    // Setting a style to the selected option
+    private fun selectedOptionStyle(view: TextView, opt: Int) {
+        setOptionStyle()
+
+        selectedOption = opt
+
+        view.background = ContextCompat.getDrawable(this, R.drawable.selected_question_option)
+        view.typeface = Typeface.DEFAULT_BOLD
+        view.setTextColor(resources.getColor(R.color.black))
+
     }
 }

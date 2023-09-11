@@ -5,47 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:padding="10dp"
     android:orientation="vertical"
-
+    android:padding="10dp"
     tools:context=".QuestionActivity">
 
     <TextView
         android:id="@+id/question_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/black"
         android:gravity="center"
+        android:textColor="@color/titleText"
         android:textSize="20sp"
-        android:text="Enter Your Question" />
+        android:textStyle="bold"
+        tools:text="Enter Your Question" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical"
-        android:layout_marginTop="20dp">
+        android:orientation="horizontal">
 
         <ProgressBar
             android:id="@+id/progress_bar"
+            style="?android:progressBarStyleHorizontal"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:progress="0"
+            android:layout_weight="1"
             android:max="5"
             android:minHeight="50dp"
-            style="?android:progressBarStyleHorizontal"/>
-        />
+            android:progress="0" />
 
         <TextView
             android:id="@+id/progress_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1/5"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textColor="@color/textColorGrey"
+            android:textSize="16sp"
+            tools:text="1/5" />
+
     </LinearLayout>
 
 
@@ -53,51 +52,56 @@
         android:id="@+id/opt_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ques_option"
-        android:text="Option1"
-        android:padding="10dp"
-        android:textSize="18sp"
         android:layout_marginTop="20dp"
-        android:gravity="center"/>
+        android:background="@drawable/ques_option"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/optionTextColor"
+        android:textSize="18sp"
+        tools:text="Option1" />
 
     <TextView
         android:id="@+id/opt_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ques_option"
-        android:text="Option1"
-        android:padding="10dp"
-        android:textSize="18sp"
         android:layout_marginTop="20dp"
-        android:gravity="center"/>
+        android:background="@drawable/ques_option"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/optionTextColor"
+        android:textSize="18sp"
+        tools:text="Option2" />
 
     <TextView
         android:id="@+id/opt_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ques_option"
-        android:text="Option1"
-        android:padding="10dp"
-        android:textSize="18sp"
         android:layout_marginTop="20dp"
-        android:gravity="center"/>
+        android:background="@drawable/ques_option"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/optionTextColor"
+        android:textSize="18sp"
+        tools:text="Option3" />
 
     <TextView
         android:id="@+id/opt_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ques_option"
-        android:text="Option1"
-        android:padding="10dp"
-        android:textSize="18sp"
         android:layout_marginTop="20dp"
-        android:gravity="center"/>
+        android:background="@drawable/ques_option"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/optionTextColor"
+        android:textSize="18sp"
+        tools:text="Option4" />
 
     <Button
         android:id="@+id/submit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_marginTop="15dp"
-        android:text="Submit" />
+        android:text="@string/submit"
+        android:textSize="18sp"/>
 
 </LinearLayout>
