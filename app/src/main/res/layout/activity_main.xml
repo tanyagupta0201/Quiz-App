@@ -26,7 +26,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@color/cardBg"
         app:cardCornerRadius="6dp"
         app:cardElevation="7dp"
         android:layout_marginTop="24dp"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/welcome"
-                android:textColor="@color/black"
+                android:textColor="@color/titleText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="@string/please_enter_your_name"
-                android:textColor="@color/black"
+                android:textColor="@color/textColorGrey"
                 android:textSize="15sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -82,8 +82,7 @@
                 android:layout_height="55dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/next"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 

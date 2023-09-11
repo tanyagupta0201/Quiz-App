@@ -8,22 +8,21 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="grey">#747377</color>
     <color name="light_grey">#9F9F9F</color>
 
     <color name="selectedTOption">#F4C724</color>
 
     <color name="correctOption">#68E66D</color>
 
-    <color name="optionUnselectedColor">@color/grey</color>
+    <color name="optionUnselectedColor">#747377</color>
 
-    <color name="cardBg">#FFFFFFFF</color>
-    <color name="titleText">@color/black</color>
+    <color name="cardBg">#1C1C1C</color>
+    <color name="titleText">@color/white</color>
     <color name="textColorWhite">@color/white</color>
-    <color name="textColorGrey">@color/black</color>
+    <color name="textColorGrey">@color/light_grey</color>
 
     <color name="optionBg">@color/cardBg</color>
-    <color name="optionStroke">@color/purple_500</color>
-    <color name="optionTextColor">@color/grey</color>
+    <color name="optionStroke">@color/light_grey</color>
+    <color name="optionTextColor">@color/white</color>
 
 </resources>
